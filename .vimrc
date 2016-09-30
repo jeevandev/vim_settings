@@ -3,6 +3,7 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 autocmd FileType * set tabstop=2|set shiftwidth=2|set softtabstop=2|set noexpandtab
+autocmd FileType cpp,cc,c set tabstop=2|set shiftwidth=2|set softtabstop=2|set expandtab
 autocmd FileType python set tabstop=8|set shiftwidth=4|set softtabstop=4|set expandtab
 autocmd FileType make setlocal noexpandtab
 " Automatically delete all trailing whitespace when we save
@@ -64,3 +65,14 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll|pyc|egg)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
+
+" For C++/C formating using clang-format
+let g:clang_format#style_options = {
+            \ "AccessModifierOffset" : -2,
+            \ "AllowShortIfStatementsOnASingleLine" : "true",
+            \ "AlwaysBreakTemplateDeclarations" : "true",
+            \ "Standard" : "C++11"}
+" autocmd FileType c ClangFormatAutoEnable
+" map to <Leader>cf in C++ code
+autocmd FileType c,cc,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cc,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
