@@ -51,6 +51,9 @@ let g:ycm_python_binary_path = 'python'
 " Tagbar
 nnoremap <leader>tg :TagbarToggle<cr>
 
+" vimgrepper
+nnoremap <leader>g :Grepper -tool grep<CR>
+
 nmap <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$']    " ignore files in NERDTree
 
@@ -76,3 +79,19 @@ let g:clang_format#style_options = {
 " map to <Leader>cf in C++ code
 autocmd FileType c,cc,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cc,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+
+" Shortcut to edit vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+" Disable arrow keys
+nnoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+
+" GO specific
+" Automagically run goimports on save
+let g:go_fmt_command = "goimports"
+
+" Run lint and vet on save
+let g:go_metalinter_autosave = 1
