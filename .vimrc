@@ -5,6 +5,7 @@ filetype plugin indent on
 autocmd FileType * set tabstop=2|set shiftwidth=2|set softtabstop=2|set noexpandtab
 autocmd FileType cpp,cc,c set tabstop=2|set shiftwidth=2|set softtabstop=2|set expandtab
 autocmd FileType python set tabstop=8|set shiftwidth=4|set softtabstop=4|set expandtab
+autocmd FileType javascript set tabstop=4|set shiftwidth=4|set softtabstop=4|set expandtab
 autocmd FileType make setlocal noexpandtab
 " Automatically delete all trailing whitespace when we save
 autocmd BufWritePre * %s/\s\+$//e
@@ -41,11 +42,13 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
+let g:syntastic_javascript_checkers=['eslint']
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
 
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_python_binary_path = 'python'
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 "let g:neocomplete#enable_at_startup = 1
 
 " Tagbar
@@ -95,3 +98,8 @@ let g:go_fmt_command = "goimports"
 
 " Run lint and vet on save
 let g:go_metalinter_autosave = 1
+
+" Format Json
+nmap =j :%!python -m json.tool<CR>gg=G<CR>
+
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)<CR>
