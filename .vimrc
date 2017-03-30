@@ -24,10 +24,42 @@ set smartindent
 set splitbelow
 set splitright
 
-set tags=./tags,tags;
+"set tags=./tags,tags;
 
 " leader key
 let mapleader=","
+
+" Searching {
+set ignorecase " case insensitive matching...
+set smartcase  " ...but only if the user didn't explicate case.
+set hlsearch   " highlight matches
+" NOTE: highligting doesn't have to be disabled to be temporarily hidden:
+" - you can run `:nohlsearch` to turn it off until the next search
+" - vim-sensible extends <Ctrl>-l so that it runs `:nohlsearch`
+" - furthermore, the following automatically turns off highlighting when in
+"   insert mode
+
+augroup hlsearch
+	autocmd InsertEnter * :setlocal nohlsearch " Disable hlsearch in insert  mode...
+	autocmd InsertLeave * :setlocal   hlsearch " ...enable it when we come out.
+augroup END
+" }
+
+" Save with <leader>-s
+noremap <leader>s :w<CR>
+inoremap <leader>s <C-o>:w<CR>
+
+" autocompletion {
+" default autocompletion
+set completeopt=longest,menuone,preview,noinsert
+" Enter key behaves correctly when popup menu is visible
+:inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Saner preview window color selection
+" http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
+highlight Pmenu ctermfg=6 ctermbg=238
+highlight PmenuSel ctermfg=5 ctermbg=0
+" }
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -103,3 +135,7 @@ let g:go_metalinter_autosave = 1
 nmap =j :%!python -m json.tool<CR>gg=G<CR>
 
 autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)<CR>
+
+" Python Specific
+" Change vertical column color to gray
+hi ColorColumn ctermbg=8
