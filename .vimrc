@@ -69,25 +69,28 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
 " For syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_javascript_checkers=['eslint']
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_javascript_checkers=['eslint']
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
 
+let g:ycm_always_populate_location_list = 1
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_python_binary_path = 'python'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 "let g:neocomplete#enable_at_startup = 1
+let g:lt_location_list_toggle_map = '<leader>l'
+let g:lt_quickfix_list_toggle_map = '<leader>q'
 
 " Tagbar
 nnoremap <leader>tg :TagbarToggle<cr>
 
 " vimgrepper
-nnoremap <leader>g :Grepper -tool grep<CR>
+nnoremap <leader>g :Grepper -tool git grep<CR>
 
 nmap <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$']    " ignore files in NERDTree
@@ -139,3 +142,16 @@ autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)<CR>
 " Python Specific
 " Change vertical column color to gray
 hi ColorColumn ctermbg=8
+
+" Folding {
+" set foldmethod=indent " default to indent folding
+" set foldlevelstart=1  " with one level open
+
+" syntax folding for some filetypes {
+" augroup syntax_folding
+" autocmd FileType markdown setlocal foldmethod=syntax
+" autocmd FileType json setlocal foldmethod=syntax
+" augroup END
+" }
+
+" }
