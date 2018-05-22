@@ -95,10 +95,16 @@ nnoremap <leader>g :Grepper -tool git grep<CR>
 nmap <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$']    " ignore files in NERDTree
 
-" Override go-to.definition key shortcut to Ctrl-]
-" let g:pymode_rope_goto_definition_bind = "<C-]>"
+" let pymode_rope_goto_definition_bind = "<C-]>"
 let g:pymode_rope = 1
+let g:pymode_rope_regenerate_on_write = 0
+let g:pymode_options_max_line_length=120
 let g:pymode_folding = 0
+let g:pymode_rope_organize_imports_bind = '<C-c>ro'
+" let g:pymode_rope_autoimport_bind = '<leader>eb'
+" let g:pymode_rope_lookup_project = 0
+" let g:pymode_rope_complete_on_dot = 0
+" let g:pymode_rope_autoimport = 0
 
 " For CtrlP
 let g:ctrlp_custom_ignore = {
@@ -127,12 +133,25 @@ nnoremap <Down> <Nop>
 nnoremap <Left> <Nop>
 nnoremap <Right> <Nop>
 
-" GO specific
+" golang specific
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_def_mapping_enabled = 0
+
+autocmd FileType go nnoremap <buffer> <silent> <C-]> :GoDef<CR>
+autocmd FileType go nnoremap <buffer> <silent> <C-t> :<C-U>call go#def#StackPop(v:count1)<CR>
+
 " Automagically run goimports on save
 let g:go_fmt_command = "goimports"
 
 " Run lint and vet on save
-let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave = 0  "autosave metalinter does not work due to fugitive buffers
+au FileType go nmap <leader>lg :GoLint<CR>
+au FileType go nmap <leader>tg :GoVet<CR>
 
 " Format Json
 nmap =j :%!python -m json.tool<CR>gg=G<CR>
@@ -142,6 +161,9 @@ autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)<CR>
 " Python Specific
 " Change vertical column color to gray
 hi ColorColumn ctermbg=8
+
+colorscheme molokai " pick molokai as color scheme
+set diffopt=vertical " opens diff in vertical splits
 
 " Folding {
 " set foldmethod=indent " default to indent folding
